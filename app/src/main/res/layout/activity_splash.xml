@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="4dp"
+            android:outlineAmbientShadowColor="@color/cardview_dark_background"
+            android:padding="8dp"
+            android:tooltipText="Type a movie" />
+
+        <Button
+            android:id="@+id/wishlist"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="4dp"
+            android:background="@color/colorPrimary"
+            android:padding="8dp"
+            android:shadowColor="@color/cardview_dark_background"
+            android:text="@string/wishlist"
+            android:textSize="20dp"
+            tools:text="@string/wishlist" />
+
+
+        <Button
+            android:id="@+id/discover"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="4dp"
+            android:background="@color/colorPrimary"
+            android:padding="8dp"
+            android:shadowColor="@color/cardview_dark_background"
+            android:text="@string/discover"
+            android:textSize="20dp"
+            tools:text="@string/discover" />
+
+        <Button
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="4dp"
+            android:background="@color/colorPrimary"
+            android:padding="8dp"
+            android:shadowColor="@color/cardview_dark_background"
+            android:text="@string/history"
+            android:textSize="20dp"
+            tools:text="@string/history" />
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
