@@ -44,7 +44,7 @@ public class NetworkUtils {
     /**
      * TODO Add your API key here
      */
-    private final static String API_Key = "<<Insert API Key here>>";
+    private final static String API_Key = "<<Insert API key>>";
 
     public static URL buildUrl(String path) {
 
@@ -151,7 +151,8 @@ public class NetworkUtils {
 
     /**
      * Building the SearchMoviesURL
-     * API example: https://api.themoviedb.org/3/search/movie?api_key=<<api-key>></>&language=en-US&query=<<text>></>&page=1&include_adult=false
+     * API example: https://api.themoviedb.org/3/search/movie?api_key=<<api-key>></>
+     * &language=en-US&query=<<text>></>&page=1&include_adult=false
      *
      * @param text
      * @return
