@@ -1,20 +1,32 @@
-package mmalla.android.com.whatnext;
+package mmalla.android.com.whatnext.features;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import mmalla.android.com.whatnext.BaseActivity;
+import mmalla.android.com.whatnext.Movie;
+import mmalla.android.com.whatnext.R;
+import mmalla.android.com.whatnext.features.discovery.DiscoverFragment;
+import mmalla.android.com.whatnext.features.discovery.PlotSummaryModalSheet;
+import mmalla.android.com.whatnext.features.history.HistoryFragment;
+import mmalla.android.com.whatnext.features.wishlist.WishlistFragment;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FeatureActivity extends AppCompatActivity {
+public class FeatureActivity extends BaseActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -32,8 +44,23 @@ public class FeatureActivity extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
+    private static final String MOVIE_WISHLIST_PARCELED = "MOVIE_WISHLIST_PARCELED";
+    private static final String MOVIE_DISCOVER_FEATURE = "MOVIE_DISCOVER_FEATURE";
+    private static final String MOVIE_HISTORY_PARCELED = "MOVIE_HISTORY_PARCELED";
+
+    private final static String TAG = FeatureActivity.class.getSimpleName();
+
+    /**
+     * Store the state if the Activity was showing Discover, Wishlist or History feature
+     * Wishlist : 0
+     * Discover : 1
+     * History : 2
+     */
+    private int state;
+
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+    private TextView mFeatureTitle;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -98,20 +125,85 @@ public class FeatureActivity extends AppCompatActivity {
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
+        mFeatureTitle = findViewById(R.id.feature_title);
 
 
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
+//        // Set up the user interaction to manually show or hide the system UI.
+//        mContentView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                toggle();
+//            }
+//        });
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+
+        // TODO Later surround this by a check if the saveInstanceState is there, then load the saved instance
+        // For saved instance, keep the screen details too of the fragment
+
+        // TODO Add the logic which kicks off the Wishlist fragment here
+
+        Intent previousIntent = getIntent();
+
+        if (previousIntent.getExtras().containsKey(MOVIE_WISHLIST_PARCELED)) {
+            ArrayList<Movie> movies = previousIntent.getParcelableArrayListExtra(MOVIE_WISHLIST_PARCELED);
+            WishlistFragment wishlistFragment = (WishlistFragment) getFragmentManager().findFragmentById(R.id.feature_container);
+            state = 0;
+            mFeatureTitle.setText(R.string.wishlist);
+            if (wishlistFragment == null) {
+                wishlistFragment = new WishlistFragment();
+                wishlistFragment.setMoviesList(movies);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.feature_container, wishlistFragment);
+                fragmentTransaction.commit();
+            }
+
+        } else if (previousIntent.getExtras().containsKey(MOVIE_DISCOVER_FEATURE)) {
+            state = 1;
+            mFeatureTitle.setText(R.string.discover);
+
+            // Set up the user interaction to manually show or hide the system UI.
+            mContentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toggle();
+                }
+            });
+
+
+
+            /**
+             * TODO Trigger the Recommendation Engine and gets the list of recommended movies and show it to the
+             * user one after the other
+             */
+
+            DiscoverFragment discoverFragment = (DiscoverFragment) getFragmentManager().findFragmentById(R.id.feature_container);
+            if(discoverFragment == null){
+                discoverFragment = DiscoverFragment.newInstance("params1", "params2");
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.feature_container, discoverFragment, TAG);
+                fragmentTransaction.commit();
+            }
+
+        } else if (previousIntent.getExtras().containsKey(MOVIE_HISTORY_PARCELED)) {
+            state = 2;
+            mFeatureTitle.setText(R.string.history);
+            ArrayList<Movie> movies = previousIntent.getParcelableArrayListExtra(MOVIE_HISTORY_PARCELED);
+
+            HistoryFragment historyFragment = (HistoryFragment) getFragmentManager().findFragmentById(R.id.feature_container);
+            if (historyFragment == null) {
+                historyFragment = new HistoryFragment();
+                historyFragment.setMoviesList(movies);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.feature_container, historyFragment);
+                fragmentTransaction.commit();
+            }
+
+        }
     }
 
     @Override
@@ -167,6 +259,15 @@ public class FeatureActivity extends AppCompatActivity {
         // Schedule a runnable to display UI elements after a delay
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
+
+
+        /**
+         * Show the bottom modal fragment to display the plot summary
+         * TODO Figure out how to send data to the modal because we need to send the plot summary to it
+         */
+        PlotSummaryModalSheet plotSummaryModalSheet = new PlotSummaryModalSheet();
+        plotSummaryModalSheet.show(getSupportFragmentManager(), "Opening PlotSummaryModalSheet");
+
     }
 
     /**

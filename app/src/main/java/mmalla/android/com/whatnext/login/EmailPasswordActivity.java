@@ -1,4 +1,4 @@
-package mmalla.android.com.whatnext;
+package mmalla.android.com.whatnext.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import mmalla.android.com.whatnext.BaseActivity;
+import mmalla.android.com.whatnext.R;
+import mmalla.android.com.whatnext.SplashActivity;
+import mmalla.android.com.whatnext.User;
 import mmalla.android.com.whatnext.utils.DatabaseUtils;
+import timber.log.Timber;
 
 public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener{
 
@@ -44,6 +49,11 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emailpassword);
+
+        /**
+         * Set up Timber for logging
+         */
+        Timber.plant(new Timber.DebugTree());
 
         // Views
         mStatusTextView = findViewById(R.id.status);

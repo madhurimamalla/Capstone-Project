@@ -3,22 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
-    tools:context=".FeatureActivity">
+    android:background="@color/colorPrimary"
+    tools:context=".features.FeatureActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
+    <FrameLayout
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
+        android:textColor="@color/textSecondary"
         android:textSize="50sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/feature_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FEATURE NAME"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/feature_container"/>
+        </LinearLayout>
+
+    </FrameLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -37,9 +52,38 @@
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <Button
-                android:id="@+id/dummy_button"
+            <ImageButton
+                android:id="@+id/dummy_button1"
                 android:layout_width="0dp"
+                android:src="@drawable/ic_heart_blue"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_weight="1"
+                android:text="@string/dummy_button" />
+            <ImageButton
+                android:id="@+id/dummy_button2"
+                android:layout_width="0dp"
+                android:src="@drawable/ic_viewed_eye"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_weight="1"
+                android:text="@string/dummy_button" />
+            <ImageButton
+                android:id="@+id/dummy_button3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_thumb_down"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_weight="1"
+                android:text="@string/dummy_button" />
+
+            <ImageButton
+                android:id="@+id/dummy_button4"
+                android:layout_width="0dp"
+                android:src="@drawable/ic_dont_like"
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 style="@style/Widget.AppCompat.Button.Colored"

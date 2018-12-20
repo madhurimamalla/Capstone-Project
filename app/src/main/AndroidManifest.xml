@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EmailPasswordActivity">
+        <activity android:name=".login.EmailPasswordActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +21,10 @@
         <activity android:name=".SplashActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".EmailPasswordActivity" />
+                android:value=".login.EmailPasswordActivity" />
         </activity>
         <activity
-            android:name=".FeatureActivity"
+            android:name=".features.FeatureActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_feature"
             android:parentActivityName=".SplashActivity"
@@ -33,6 +33,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mmalla.android.com.whatnext.SplashActivity" />
         </activity>
+
+        <receiver android:name=".widget.WishlistWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wishlist_widget_info" />
+        </receiver>
+        <receiver android:name=".WidgetWishlist">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_wishlist_info" />
+        </receiver>
     </application>
 
 </manifest>

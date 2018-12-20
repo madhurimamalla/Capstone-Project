@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryLight"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/botton_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:minHeight="30dp"
+        app:behavior_hideable="true"
+        android:orientation="vertical"
+        app:behavior_peekHeight="120dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+        <!-- TODO Remove this layout_behaviour to make it not show a blank screen -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:padding="16dp"
+            android:text="PLOT SUMMARY"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/plot_summary_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:padding="16dp"
+            android:text="The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind's murderous plan.
+The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind's murderous plan."
+            android:textAlignment="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
