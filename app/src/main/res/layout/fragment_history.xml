@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:padding="4dp">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/wishlist_card"
+        android:id="@+id/history_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,7 +21,7 @@
                 android:id="@+id/movie_poster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/baseline_movie_filter_black_48dp" />
+                android:padding="4dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,7 +31,6 @@
                 <TextView
                     android:id="@+id/movie_name"
                     style="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"

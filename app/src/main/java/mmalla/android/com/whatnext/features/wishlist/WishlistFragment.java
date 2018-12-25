@@ -11,11 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import mmalla.android.com.whatnext.Movie;
 import mmalla.android.com.whatnext.R;
+import mmalla.android.com.whatnext.model.Movie;
+import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
+import timber.log.Timber;
 
 /**
  * A fragment representing a list of Items.
@@ -23,13 +27,17 @@ import mmalla.android.com.whatnext.R;
  */
 public class WishlistFragment extends Fragment {
 
+    private final static String TAG = WishlistFragment.class.getSimpleName();
+
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final String MOVIES_LIST = "MOVIES_LIST";
 
     private List<Movie> movies;
 
-    // TODO: Customize parameters
+    DatabaseUtils databaseUtils;
+    FirebaseAuth mAuth;
+
     private int mColumnCount = 1;
 
     public void setMoviesList(List<Movie> movies) {
@@ -57,20 +65,21 @@ public class WishlistFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
+        if (savedInstanceState != null) {
+            this.movies = savedInstanceState.getParcelableArrayList("MOVIES_LIST");
+        } else if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        mAuth = FirebaseAuth.getInstance();
+        databaseUtils = new DatabaseUtils();
+        this.movies = databaseUtils.getWishlist(mAuth.getCurrentUser().getUid());
+        Timber.d(TAG, " Got the movies! ");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if (savedInstanceState != null) {
-            movies = savedInstanceState.getParcelableArrayList(MOVIES_LIST);
-        } else if (getArguments() != null) {
-            movies = getArguments().getParcelableArrayList(MOVIES_LIST);
-        }
 
         View view = inflater.inflate(R.layout.fragment_wishlist_item_list, container, false);
 
@@ -83,7 +92,7 @@ public class WishlistFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyWishlistItemRecyclerViewAdapter(movies));
+            recyclerView.setAdapter(new MyWishlistItemRecyclerViewAdapter(movies, getActivity().getApplicationContext()));
         }
         return view;
     }

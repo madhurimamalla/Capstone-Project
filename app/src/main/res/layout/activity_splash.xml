@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
 
+    <!-- Additional space on top of the screen -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,19 +16,20 @@
         android:orientation="vertical"
         android:padding="4dp">
 
-        <SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="4dp"
-            android:outlineAmbientShadowColor="@color/cardview_dark_background"
-            android:padding="8dp"
-            android:tooltipText="Type a movie" />
+        <!--<SearchView-->
+        <!--android:id="@+id/search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_margin="4dp"-->
+        <!--android:outlineAmbientShadowColor="@color/cardview_dark_background"-->
+        <!--android:padding="8dp"-->
+        <!--android:tooltipText="Type a movie" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="4dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -39,6 +44,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="4dp"
                 android:layout_weight="2"
+                android:elevation="8dp"
                 android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/wishlist"
@@ -51,20 +57,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="4dp">
+
             <Button
                 android:id="@+id/discover"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="4dp"
-                android:padding="8dp"
                 android:layout_weight="2"
+                android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/discover"
                 android:textSize="20dp"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:elevation="8dp"
                 tools:text="@string/discover" />
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -76,20 +86,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:src="@drawable/ic_history" />
+
             <Button
                 android:id="@+id/history"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="4dp"
-                android:padding="8dp"
                 android:layout_weight="2"
+                android:elevation="8dp"
+                android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/history"
                 android:textSize="20dp"

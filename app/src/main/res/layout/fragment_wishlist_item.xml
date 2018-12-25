@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wishlist_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:layout_margin="4dp"
+    android:elevation="4dp"
+    android:padding="4dp"
+    app:cardCornerRadius="1dp">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/wishlist_card"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/movie_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/movie_poster"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/baseline_movie_filter_black_48dp" />
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/movie_name"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="@dimen/text_margin"
+                tools:text="Passengers" />
 
-                <TextView
-                    android:id="@+id/movie_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    tools:text="Passengers" />
-
-                <TextView
-                    android:id="@+id/movie_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    tools:text="2320" />
-            </LinearLayout>
-
+            <TextView
+                android:id="@+id/movie_year"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                tools:text="2320" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 
+    </LinearLayout>
+</android.support.v7.widget.CardView>
 
-</LinearLayout>

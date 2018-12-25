@@ -34,8 +34,9 @@ dependencies {
     /**
      * Needed for loading and cacheing images
      */
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation project(':recommendationengine')
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    
     implementation 'com.google.firebase:firebase-database:16.0.5'
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'

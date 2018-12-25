@@ -3,24 +3,34 @@ package mmalla.android.com.whatnext.features;
 import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.app.NavUtils;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import mmalla.android.com.whatnext.BaseActivity;
-import mmalla.android.com.whatnext.Movie;
 import mmalla.android.com.whatnext.R;
-import mmalla.android.com.whatnext.features.discovery.DiscoverFragment;
-import mmalla.android.com.whatnext.features.discovery.PlotSummaryModalSheet;
+import mmalla.android.com.whatnext.features.discovery.DiscoverPagerAdapter;
 import mmalla.android.com.whatnext.features.history.HistoryFragment;
 import mmalla.android.com.whatnext.features.wishlist.WishlistFragment;
+import mmalla.android.com.whatnext.model.Movie;
+import mmalla.android.com.whatnext.moviedbclient.MovieDBClient;
+import mmalla.android.com.whatnext.moviedbclient.MovieDBClientException;
+import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
+import timber.log.Timber;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -33,6 +43,15 @@ public class FeatureActivity extends BaseActivity {
      */
     private static final boolean AUTO_HIDE = true;
 
+    DatabaseUtils databaseUtils;
+    FirebaseAuth mAuth;
+
+    Long num;
+
+    private ViewPager mViewPager;
+    private List<Movie> discoveredMovies;
+    private List<Movie> dislikedMovies;
+
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
@@ -44,9 +63,13 @@ public class FeatureActivity extends BaseActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
+    private static final String ARE_THERE_MOVIES_UNDER_USER = "ARE_THERE_MOVIES_UNDER_USER";
     private static final String MOVIE_WISHLIST_PARCELED = "MOVIE_WISHLIST_PARCELED";
     private static final String MOVIE_DISCOVER_FEATURE = "MOVIE_DISCOVER_FEATURE";
     private static final String MOVIE_HISTORY_PARCELED = "MOVIE_HISTORY_PARCELED";
+    private static final String MOVIES_DISLIKED = "MOVIES_DISLIKED";
+    private static final String MOVIES_LIKED = "MOVIES_LIKED";
+    private static final String MOVIES_DISCOVERED = "MOVIES_DISCOVERED";
 
     private final static String TAG = FeatureActivity.class.getSimpleName();
 
@@ -116,6 +139,9 @@ public class FeatureActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        databaseUtils = new DatabaseUtils();
+        mAuth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_feature);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -127,6 +153,13 @@ public class FeatureActivity extends BaseActivity {
         mContentView = findViewById(R.id.fullscreen_content);
         mFeatureTitle = findViewById(R.id.feature_title);
 
+        /**
+         * ViewPager to display the various movies in the discover feature
+         */
+        mViewPager = (ViewPager) findViewById(R.id.container);
+
+        discoveredMovies = new ArrayList<Movie>();
+        dislikedMovies = new ArrayList<Movie>();
 
 //        // Set up the user interaction to manually show or hide the system UI.
 //        mContentView.setOnClickListener(new View.OnClickListener() {
@@ -150,13 +183,12 @@ public class FeatureActivity extends BaseActivity {
         Intent previousIntent = getIntent();
 
         if (previousIntent.getExtras().containsKey(MOVIE_WISHLIST_PARCELED)) {
-            ArrayList<Movie> movies = previousIntent.getParcelableArrayListExtra(MOVIE_WISHLIST_PARCELED);
+
             WishlistFragment wishlistFragment = (WishlistFragment) getFragmentManager().findFragmentById(R.id.feature_container);
             state = 0;
             mFeatureTitle.setText(R.string.wishlist);
             if (wishlistFragment == null) {
                 wishlistFragment = new WishlistFragment();
-                wishlistFragment.setMoviesList(movies);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.feature_container, wishlistFragment);
                 fragmentTransaction.commit();
@@ -166,33 +198,111 @@ public class FeatureActivity extends BaseActivity {
             state = 1;
             mFeatureTitle.setText(R.string.discover);
 
-            // Set up the user interaction to manually show or hide the system UI.
-            mContentView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toggle();
-                }
-            });
+            if (savedInstanceState != null) {
+                num = savedInstanceState.getLong(ARE_THERE_MOVIES_UNDER_USER);
+            } else if (previousIntent.getExtras().containsKey(ARE_THERE_MOVIES_UNDER_USER)) {
+                num = previousIntent.getExtras().getLong(ARE_THERE_MOVIES_UNDER_USER);
+            }
 
+            if (savedInstanceState != null) {
+                discoveredMovies.clear();
+                discoveredMovies = savedInstanceState.getParcelableArrayList(MOVIES_DISCOVERED);
+            } else if (previousIntent.getExtras().containsKey(MOVIES_LIKED)) {
+                discoveredMovies = previousIntent.getExtras().getParcelableArrayList(MOVIES_LIKED);
+            }
+
+            if (savedInstanceState != null) {
+                dislikedMovies.clear();
+                dislikedMovies = savedInstanceState.getParcelableArrayList(MOVIES_DISLIKED);
+            } else if (previousIntent.getExtras().containsKey(MOVIES_DISLIKED)) {
+                this.dislikedMovies = previousIntent.getExtras().getParcelableArrayList(MOVIES_DISLIKED);
+            }
+
+            if (num == 0) {
+
+                final MovieDBClient movieDBClient = new MovieDBClient();
+
+                class fetchMovies extends AsyncTask<String, Void, List<Movie>> {
+
+                    @Override
+                    protected List<Movie> doInBackground(String... strings) {
+                        List<Movie> movielist = new ArrayList<Movie>();
+
+                        try {
+                            movielist = movieDBClient.getSomePopularMovies(10);
+                        } catch (MovieDBClientException e) {
+                            e.printStackTrace();
+                        }
+                        return movielist;
+                    }
+                }
+
+                try {
+                    discoveredMovies = new fetchMovies().execute("").get();
+                    Timber.d(TAG, "Discovered movies are here!");
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+                /**
+                 * Fetch the liked movies, choose a movie randomly in that
+                 * and send that to fetch similar movies from TMDB
+                 * After fetching, remove the ones which are disliked and update the discovered list
+                 */
+
+                final MovieDBClient client = new MovieDBClient();
+
+                int luckyNum = client.getRandomNumber(0, discoveredMovies.size());
+
+                class fetchInterestingMovies extends AsyncTask<String, Void, List<Movie>> {
+
+                    @Override
+                    protected List<Movie> doInBackground(String... strings) {
+                        List<Movie> movielist = new ArrayList<Movie>();
+
+                        try {
+                            movielist = client.getSimilarMovies(strings[0]);
+                        } catch (MovieDBClientException e) {
+                            e.printStackTrace();
+                        }
+                        return movielist;
+                    }
+                }
+
+                try {
+                    Movie luckyMovie = discoveredMovies.get(luckyNum - 1);
+                    discoveredMovies.clear();
+                    discoveredMovies = new fetchInterestingMovies().execute(luckyMovie.getmId()).get();
+                    Timber.d(TAG, "Discovered movies are here!");
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            /**
+             * TODO Refine the discovered movies to remove any disliked movies
+             */
 
 
             /**
-             * TODO Trigger the Recommendation Engine and gets the list of recommended movies and show it to the
-             * user one after the other
+             * Get the discovered movie list and set the adapter list so it can display in the viewpager
              */
-
-            DiscoverFragment discoverFragment = (DiscoverFragment) getFragmentManager().findFragmentById(R.id.feature_container);
-            if(discoverFragment == null){
-                discoverFragment = DiscoverFragment.newInstance("params1", "params2");
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.feature_container, discoverFragment, TAG);
-                fragmentTransaction.commit();
+            DiscoverPagerAdapter discoverPagerAdapter = new DiscoverPagerAdapter(getSupportFragmentManager());
+            if (discoveredMovies.size() > 10) {
+                discoverPagerAdapter.setList(discoveredMovies.subList(0, 9));
             }
+            discoverPagerAdapter.setList(discoveredMovies);
+            mViewPager.setAdapter(discoverPagerAdapter);
 
         } else if (previousIntent.getExtras().containsKey(MOVIE_HISTORY_PARCELED)) {
             state = 2;
             mFeatureTitle.setText(R.string.history);
-            ArrayList<Movie> movies = previousIntent.getParcelableArrayListExtra(MOVIE_HISTORY_PARCELED);
+            List<Movie> movies = previousIntent.getParcelableArrayListExtra(MOVIE_HISTORY_PARCELED);
 
             HistoryFragment historyFragment = (HistoryFragment) getFragmentManager().findFragmentById(R.id.feature_container);
             if (historyFragment == null) {
@@ -260,13 +370,12 @@ public class FeatureActivity extends BaseActivity {
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
 
-
-        /**
-         * Show the bottom modal fragment to display the plot summary
-         * TODO Figure out how to send data to the modal because we need to send the plot summary to it
-         */
-        PlotSummaryModalSheet plotSummaryModalSheet = new PlotSummaryModalSheet();
-        plotSummaryModalSheet.show(getSupportFragmentManager(), "Opening PlotSummaryModalSheet");
+//        /**
+//         * Show the bottom modal fragment to display the plot summary
+//         * TODO Figure out how to send data to the modal because we need to send the plot summary to it
+//         */
+//        PlotSummaryModalSheet plotSummaryModalSheet = new PlotSummaryModalSheet();
+//        plotSummaryModalSheet.show(getSupportFragmentManager(), "Opening PlotSummaryModalSheet");
 
     }
 
@@ -277,5 +386,15 @@ public class FeatureActivity extends BaseActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Timber.d("Inside onSaveInstanceState() Saving state ....");
+        super.onSaveInstanceState(outState);
+        outState.putLong(ARE_THERE_MOVIES_UNDER_USER, num);
+        outState.putParcelableArrayList(MOVIES_DISLIKED, (ArrayList<? extends Parcelable>) dislikedMovies);
+        outState.putParcelableArrayList(MOVIES_DISCOVERED, (ArrayList<? extends Parcelable>) discoveredMovies);
+
     }
 }

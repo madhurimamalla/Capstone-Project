@@ -1,8 +1,9 @@
 package mmalla.android.com.whatnext.features.history;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,17 +11,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import mmalla.android.com.whatnext.Movie;
 import mmalla.android.com.whatnext.R;
-import mmalla.android.com.whatnext.dummy.DummyContent.DummyItem;
+import mmalla.android.com.whatnext.model.Movie;
+import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
+import timber.log.Timber;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
  */
 public class HistoryFragment extends Fragment {
+
+    private final static String TAG = HistoryFragment.class.getSimpleName();
+
+    private DatabaseUtils databaseUtils;
+    private FirebaseAuth mAuth;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -32,6 +42,7 @@ public class HistoryFragment extends Fragment {
     public void setMoviesList(List<Movie> movies) {
         this.movies = movies;
     }
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -53,9 +64,26 @@ public class HistoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            movies = savedInstanceState.getParcelableArrayList(getString(R.string.HISTORY_MOVIES));
+        }
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+
+        /**
+         * Get movies from the history of the user
+         */
+        mAuth = FirebaseAuth.getInstance();
+        databaseUtils = new DatabaseUtils();
+        /**
+         * Displayed the movies which the user has seen and liked
+         */
+        this.movies = databaseUtils.getHistory(mAuth.getCurrentUser().getUid());
+        Timber.d(TAG, " Got the movies! ");
+
     }
 
     @Override
@@ -83,18 +111,9 @@ public class HistoryFragment extends Fragment {
         super.onDetach();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(getString(R.string.HISTORY_MOVIES), (ArrayList<? extends Parcelable>) movies);
     }
 }

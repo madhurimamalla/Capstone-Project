@@ -47,12 +47,6 @@
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="firebase_user_management">Firebase User Management</string>
 
-    <string name="google_status_fmt">Google User: %s</string>
-    <string name="google_title_text">Google Sign In</string>
-
-    <string name="facebook_status_fmt">Facebook User: %s</string>
-    <string name="facebook_title_text">Facebook Login</string>
-
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="emailpassword_title_text">What next?</string>
 
@@ -64,9 +58,6 @@
 
     <string name="phone_title_text">Phone Number</string>
 
-    <string name="twitter_status_fmt">Twitter User: %s</string>
-    <string name="twitter_title_text">Twitter Login</string>
-
     <string name="firebaseui_status_fmt">Firebase User: %s</string>
     <string name="firebaseui_title_text">FirebaseUI Auth</string>
 
@@ -77,9 +68,17 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="configure">Configure Widget</string>
+    <string name="no_recipes_widget">No movies !</string>
+    <string name="collapsing_toolbar">Movie Name</string>
+    <string name="long_latin">Victor Navorksi (played by Tom Hanks), a man from the Eastern European nation of Krakozhia, flies into JFK airport. At Customs he is forbidden entry to the USA - Krakozhia has been taken over in a coup and the US does not currently recognise the new regime, or nation. In addition, the borders of Krakozhia are now closed. This leaves Victor in limbo - he cannot enter the US or go back to Krakozhia. While waiting for the diplomatic situation to sort itself out he is forced to live in the International Transit section of JFK, living off his own resourcefulness. He also makes some new friends along the way.</string>
+
+    <!-- Highly used strings for parceling and other onsaveinstance flows -->
+    <string name="DISCOVERED_MOVIE">DISCOVERED_MOVIE</string>
+    <string name="PARCELED_MOVIE">PARCELED_MOVIE</string>
+    <string name="HISTORY_MOVIES">HISTORY_MOVIES</string>
 
 </resources>

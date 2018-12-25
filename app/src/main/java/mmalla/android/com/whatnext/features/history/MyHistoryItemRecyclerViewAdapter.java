@@ -11,15 +11,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import mmalla.android.com.whatnext.Movie;
 import mmalla.android.com.whatnext.R;
-import mmalla.android.com.whatnext.features.history.HistoryFragment.OnListFragmentInteractionListener;
+import mmalla.android.com.whatnext.model.Movie;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * {@link RecyclerView.Adapter} that can display a {@link Movie}.
  */
 public class MyHistoryItemRecyclerViewAdapter extends RecyclerView.Adapter<MyHistoryItemRecyclerViewAdapter.HistoryItemViewHolder> {
+
+    private final static String TAG = MyHistoryItemRecyclerViewAdapter.class.getSimpleName();
 
     private final List<Movie> mValues;
 
@@ -36,12 +36,17 @@ public class MyHistoryItemRecyclerViewAdapter extends RecyclerView.Adapter<MyHis
 
     @Override
     public void onBindViewHolder(final HistoryItemViewHolder holder, int position) {
-        holder.mName.setText(mValues.get(position).getMovieTitle());
-        holder.mYear.setText(mValues.get(position).getReleaseDate());
+        holder.mName.setText(mValues.get(position).getmTitle());
+        holder.mYear.setText(mValues.get(position).getmReleaseYear());
 
+        /**
+         * Render the movie poster
+         */
         try{
-            String imgPath = mValues.get(position).getMovieImgPath();
-            Picasso.get().load(imgPath).into(holder.mImgPath);
+            String imgPath = mValues.get(position).getmPoster();
+            String IMAGE_MOVIE_URL = "http://image.tmdb.org/t/p/w185/";
+            Picasso.get().setLoggingEnabled(true);
+            Picasso.get().load(IMAGE_MOVIE_URL + imgPath).into(holder.mImgPath);
         }catch (IllegalStateException e){
             holder.mImgPath.setImageResource(R.drawable.baseline_movie_filter_black_48dp);
         }

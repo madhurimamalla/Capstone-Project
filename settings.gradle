@@ -1,1 +1,1 @@
-include ':app', ':recommendationengine'
+include ':app'

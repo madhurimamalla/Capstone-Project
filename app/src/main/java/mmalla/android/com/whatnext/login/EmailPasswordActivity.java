@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,8 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import mmalla.android.com.whatnext.BaseActivity;
 import mmalla.android.com.whatnext.R;
 import mmalla.android.com.whatnext.SplashActivity;
-import mmalla.android.com.whatnext.User;
-import mmalla.android.com.whatnext.utils.DatabaseUtils;
+import mmalla.android.com.whatnext.model.User;
+import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
 import timber.log.Timber;
 
 public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener{
@@ -88,7 +87,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     // [END on_start_check_user]
 
     private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
+        Timber.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
         }
@@ -102,9 +101,9 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
+                            Timber.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d(TAG, "Also adding the authenticated user into Firebase Realtime DB");
+                            Timber.d(TAG, "Also adding the authenticated user into Firebase Realtime DB");
                             /**
                              * Add the entry into the Firebase Realtime database as the account is getting created
                              * and it's for the first time!
@@ -115,7 +114,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Timber.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -130,7 +129,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     }
 
     private void signIn(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
+        Timber.d(TAG, "signIn:" + email);
         if (!validateForm()) {
             return;
         }
@@ -144,12 +143,12 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
+                            Timber.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Timber.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -225,7 +224,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                                     "Verification email sent to " + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            Timber.e(TAG, "sendEmailVerification", task.getException());
                             Toast.makeText(EmailPasswordActivity.this,
                                     "Failed to send verification email.",
                                     Toast.LENGTH_SHORT).show();

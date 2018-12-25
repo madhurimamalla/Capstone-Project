@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".features.discovery.DiscoverFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/discover_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/movie_poster_discover"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/movie_poster_discover_screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <ImageView
+            android:id="@+id/dont_like_movie"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="bottom|right"
+            android:alpha="0.8"
+            android:cropToPadding="false"
+            android:src="@drawable/like_flat" />
+
+        <ImageView
+            android:id="@+id/add_to_watchlist"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="bottom|center"
+            android:alpha="0.8"
+            android:cropToPadding="false"
+            android:src="@drawable/binoculars" />
+
+        <ImageView
+            android:id="@+id/like_movie"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="bottom|left"
+            android:alpha="0.8"
+            android:cropToPadding="false"
+            android:src="@drawable/dislike" />
 
     </FrameLayout>
 
-</FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

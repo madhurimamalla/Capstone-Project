@@ -4,10 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorPrimaryLight">#C5CAE9</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="lightBlueText">#bee0ff</color>
     <color name="textPrimary">#212121</color>
     <color name="textSecondary">#757575</color>
     <color name="dividerColor">#BDBDBD</color>
-    <color name="colorAccent">#FFC107</color>
+    <color name="colorAccent">#F6D55C</color>
+    <color name="beachYellow">#fff5cc</color>
 
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
