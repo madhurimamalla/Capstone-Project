@@ -81,5 +81,7 @@
     <string name="PARCELED_MOVIE">PARCELED_MOVIE</string>
     <string name="HISTORY_MOVIES">HISTORY_MOVIES</string>
     <string name="widget_wishlist">Wishlist</string>
+    <string name="start_fresh">Start Fresh!</string>
+    <string name="set_account_details">Set Account Details</string>
 
 </resources>
