@@ -80,5 +80,6 @@
     <string name="DISCOVERED_MOVIE">DISCOVERED_MOVIE</string>
     <string name="PARCELED_MOVIE">PARCELED_MOVIE</string>
     <string name="HISTORY_MOVIES">HISTORY_MOVIES</string>
+    <string name="widget_wishlist">Wishlist</string>
 
 </resources>

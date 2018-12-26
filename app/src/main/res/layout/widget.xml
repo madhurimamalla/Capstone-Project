@@ -15,20 +15,20 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
+            android:padding="@dimen/widget_layout_main_padding"
+            android:paddingLeft="@dimen/widget_layout_main_paddingLeft"
+            android:paddingRight="@dimen/widget_layout_main_paddingRight">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:paddingEnd="@dimen/widget_header_padding"
                 android:paddingLeft="@dimen/widget_header_padding"
                 android:paddingRight="@dimen/widget_header_padding"
                 android:paddingStart="@dimen/widget_header_padding"
-                android:text="Wishlist"
-                android:gravity="center_horizontal"
+                android:text="@string/widget_wishlist"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorText"
                 android:textStyle="bold" />
@@ -38,7 +38,7 @@
         <GridView
             android:id="@+id/widget_grid_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></GridView>
+            android:layout_height="wrap_content" />
 
         <RelativeLayout
             android:id="@+id/empty_view"
@@ -52,15 +52,13 @@
                 android:layout_centerInParent="true"
                 android:text="@string/no_recipes_widget"
                 android:textColor="@color/colorText"
-                android:textSize="25sp"
+                android:textSize="@dimen/widget_empty_view_title_textsize"
                 android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0.2"
-                />
-            <!--android:src="@drawable/recipe_step_selection"-->
+                android:alpha="0.2" />
         </RelativeLayout>
     </LinearLayout>
 

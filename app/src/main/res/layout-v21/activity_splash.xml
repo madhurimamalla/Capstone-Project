@@ -44,33 +44,34 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/activity_splash_wishlist_margin"
                 android:layout_weight="2"
-                android:elevation="@dimen/activity_splash_wishlist_elevation"
-                android:padding="@dimen/activity_splash_wishlist_padding"
+                android:elevation="8dp"
+                android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/wishlist"
-                android:textSize="@dimen/activity_splash_wishlist_textsize"
+                android:textSize="20dp"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 tools:text="@string/wishlist" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/activity_splash_4_padding">
+            android:padding="4dp">
 
             <Button
                 android:id="@+id/discover"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_margin="@dimen/activity_splash_discover_margin"
+                android:layout_margin="4dp"
                 android:layout_weight="2"
-                android:elevation="@dimen/activity_splash_wishlist_elevation"
-                android:padding="@dimen/activity_splash_wishlist_padding"
+                android:elevation="8dp"
+                android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/discover"
-                android:textSize="@dimen/activity_splash_button_textsize"
+                android:textSize="20dp"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 tools:text="@string/discover" />
 
@@ -79,13 +80,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:src="@drawable/ic_new_badge" />
+
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_splash_4_padding">
+            android:padding="4dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -98,15 +100,20 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_margin="@dimen/activity_splash_discover_margin"
+                android:layout_margin="4dp"
                 android:layout_weight="2"
-                android:elevation="@dimen/activity_splash_wishlist_elevation"
-                android:padding="@dimen/activity_splash_wishlist_padding"
+                android:elevation="8dp"
+                android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/history"
-                android:textSize="@dimen/activity_splash_button_textsize"
+                android:textSize="20dp"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 tools:text="@string/history" />
+
         </LinearLayout>
+
+
     </LinearLayout>
+
+
 </android.support.design.widget.CoordinatorLayout>

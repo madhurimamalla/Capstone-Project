@@ -10,19 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:minHeight="30dp"
+        android:minHeight="@dimen/plot_summary_linearlayout_minheight"
         android:orientation="vertical"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="120dp"
+        app:behavior_peekHeight="@dimen/plot_summary_peekheight"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-        <!-- TODO Remove this layout_behaviour to make it not show a blank screen -->
+        <!-- Remove this layout_behaviour to make it not show a blank screen -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
-            android:padding="16dp"
+            android:layout_margin="@dimen/plot_summary_modal_textview_margin"
+            android:padding="@dimen/plot_summary_modal_textview_padding"
             android:text="PLOT SUMMARY"
             android:textAlignment="center"
             android:textSize="25sp" />
@@ -32,15 +32,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
-            android:padding="16dp"
+            android:layout_margin="@dimen/plot_summary_modal_text_layout_margin"
+            android:padding="@dimen/plot_summary_plot_summary_text_padding"
             android:text="The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind's murderous plan.
 The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind's murderous plan."
             android:textAlignment="center" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="@dimen/plot_summary_modal_view_layout_height" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -43,7 +43,7 @@ public class MovieDBClient {
     /**
      * TODO Add your API key here
      */
-    private final static String API_Key = "<<Insert-key>>";
+    private final static String API_Key = "<<Insert API KEY here>>";
 
     public MovieDBClient() {
     }

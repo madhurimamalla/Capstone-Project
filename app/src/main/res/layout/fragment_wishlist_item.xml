@@ -7,8 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:elevation="4dp"
-    android:padding="4dp"
+    android:elevation="@dimen/fragment_wishlist_item_card_elevation"
+    android:padding="@dimen/fragment_item_general_padding"
     app:cardCornerRadius="1dp">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:id="@+id/movie_poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="4dp" />
+            android:padding="@dimen/fragment_wishlist_item_movie_poster_padding" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -7,9 +7,6 @@
     android:background="@color/design_default_color_primary"
     tools:context=".features.FeatureActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
     <FrameLayout
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
@@ -30,10 +27,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:backgroundTint="@color/colorAccent"
-                android:padding="4dp"
-                app:cardCornerRadius="2dp"
-                app:cardElevation="4dp"
-                app:cardMaxElevation="12dp">
+                android:padding="@dimen/activity_feature_card_padding"
+                app:cardCornerRadius="@dimen/activity_feature_card_corner_radius"
+                app:cardElevation="@dimen/activity_feature_card_elevation"
+                app:cardMaxElevation="@dimen/activity_feature_card_max_elevation">
 
                 <TextView
                     android:id="@+id/feature_title"
@@ -41,8 +38,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:padding="4dp"
+                    android:layout_margin="@dimen/activity_feature_feature_title_margin"
+                    android:padding="@dimen/activity_feature_title_padding"
                     android:text="FEATURE NAME"
                     android:textAlignment="center" />
             </android.support.v7.widget.CardView>
@@ -60,7 +57,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="4dp" />
+        android:padding="@dimen/activity_feature_viewpager_padding" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

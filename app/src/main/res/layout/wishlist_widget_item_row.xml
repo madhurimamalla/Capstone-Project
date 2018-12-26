@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="4dp">
+        android:padding="@dimen/wishlist_widget_item_row_linearlayout_padding">
 
         <ImageView
             android:id="@+id/widget_movie_poster"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:padding="2dp"
+            android:layout_margin="@dimen/wishlist_widget_item_row_poster_margin"
+            android:padding="@dimen/wishlist_widget_poster_padding"
             android:src="@drawable/ic_heart_blue" />
 
         <LinearLayout
@@ -31,9 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2"
-                android:padding="8dp"
+                android:padding="@dimen/widget_movie_title_padding"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
-                android:textSize="15sp"
+                android:textSize="@dimen/widget_movie_title_textsize"
                 tools:text="Movie name" />
 
             <TextView
@@ -42,9 +42,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="3"
-                android:padding="8dp"
+                android:padding="@dimen/widget_movie_year_padding"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Display2"
-                android:textSize="15sp"
+                android:textSize="@dimen/widget_movie_year_textsize"
                 tools:text="2011" />
         </LinearLayout>
 
