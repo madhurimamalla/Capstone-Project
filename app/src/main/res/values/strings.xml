@@ -83,5 +83,10 @@
     <string name="widget_wishlist">Wishlist</string>
     <string name="start_fresh">Start Fresh!</string>
     <string name="set_account_details">Set Account Details</string>
+    <string name="movie_poster_fragment_history_content_scr">Movie Poster</string>
+    <string name="movie_poster_discover_screen_content_desc">Movie poster</string>
+    <string name="dislike_movie_button">dislike movie button</string>
+    <string name="like_movie_button">like movie button</string>
+    <string name="add_to_watchlist">Add to watchlist</string>
 
 </resources>

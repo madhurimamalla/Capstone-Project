@@ -10,17 +10,19 @@
         <ImageView
             android:id="@+id/movie_poster_discover_screen"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:contentDescription="@string/movie_poster_discover_screen_content_desc" />
 
 
         <ImageView
-            android:id="@+id/dont_like_movie"
+            android:id="@+id/like_movie_button"
             android:layout_width="@dimen/fragment_discover_layout_width"
             android:layout_height="@dimen/fragment_discover_layout_height"
             android:layout_gravity="bottom|right"
             android:alpha="0.8"
             android:cropToPadding="false"
-            android:src="@drawable/like_flat" />
+            android:src="@drawable/like_flat"
+            android:contentDescription="@string/like_movie_button" />
 
         <ImageView
             android:id="@+id/add_to_watchlist"
@@ -29,16 +31,18 @@
             android:layout_gravity="bottom|center"
             android:alpha="0.8"
             android:cropToPadding="false"
-            android:src="@drawable/binoculars" />
+            android:src="@drawable/binoculars"
+            android:contentDescription="@string/add_to_watchlist" />
 
         <ImageView
-            android:id="@+id/like_movie"
+            android:id="@+id/dislike_movie_button"
             android:layout_width="@dimen/fragment_discover_layout_width"
             android:layout_height="@dimen/fragment_discover_layout_height"
             android:layout_gravity="bottom|left"
             android:alpha="0.8"
             android:cropToPadding="false"
-            android:src="@drawable/dislike" />
+            android:src="@drawable/dislike"
+            android:contentDescription="@string/dislike_movie_button" />
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

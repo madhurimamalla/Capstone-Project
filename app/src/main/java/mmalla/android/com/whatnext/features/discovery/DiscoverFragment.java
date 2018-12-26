@@ -100,8 +100,8 @@ public class DiscoverFragment extends Fragment {
          * The button clicks need to be recorded here
          */
         final ImageView watchlistView = (ImageView) rootView.findViewById(R.id.add_to_watchlist);
-        final ImageView likedMovieView = (ImageView) rootView.findViewById(R.id.dont_like_movie);
-        final ImageView dontlikeMovieView = (ImageView) rootView.findViewById(R.id.like_movie);
+        final ImageView likedMovieView = (ImageView) rootView.findViewById(R.id.like_movie_button);
+        final ImageView dontlikeMovieView = (ImageView) rootView.findViewById(R.id.dislike_movie_button);
 
         watchlistView.setOnClickListener(new View.OnClickListener() {
             @Override
