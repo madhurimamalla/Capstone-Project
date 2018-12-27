@@ -20,9 +20,9 @@ public class WidgetConfigureActivity extends Activity {
     private static final String PREFS_NAME = "mmalla.android.com.whatnext.widget.Widget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     private static final String TAG = WidgetConfigureActivity.class.getSimpleName();
-    int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    EditText mAppWidgetText;
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+    private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    private EditText mAppWidgetText;
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = WidgetConfigureActivity.this;
 
@@ -47,7 +47,7 @@ public class WidgetConfigureActivity extends Activity {
     }
 
     // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String text) {
+    private static void saveTitlePref(Context context, int appWidgetId, String text) {
         Timber.d(TAG, "Starting saveTitlePref() in WidgetConfigureActivity.......");
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);

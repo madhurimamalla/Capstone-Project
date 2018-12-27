@@ -26,12 +26,10 @@ public class MyWishlistItemRecyclerViewAdapter extends RecyclerView.Adapter<MyWi
 
     private final List<Movie> mValues;
 
-    private Context mContext;
-
 
     public MyWishlistItemRecyclerViewAdapter(List<Movie> items, Context mContext) {
         mValues = items;
-        this.mContext = mContext;
+        Context mContext1 = mContext;
     }
 
     @Override
@@ -76,11 +74,11 @@ public class MyWishlistItemRecyclerViewAdapter extends RecyclerView.Adapter<MyWi
     }
 
     public class WishlistViewHolder extends RecyclerView.ViewHolder {
-        public final ImageView mImgPath;
-        public final TextView mName;
-        public final TextView mYear;
+        final ImageView mImgPath;
+        final TextView mName;
+        final TextView mYear;
 
-        public WishlistViewHolder(View view) {
+        WishlistViewHolder(View view) {
             super(view);
             mImgPath = (ImageView) view.findViewById(R.id.movie_poster);
             mName = (TextView) view.findViewById(R.id.movie_name);

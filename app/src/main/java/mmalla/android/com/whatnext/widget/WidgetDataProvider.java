@@ -24,31 +24,30 @@ import mmalla.android.com.whatnext.moviedbclient.MovieDBClient;
 import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
 import timber.log.Timber;
 
-public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
+class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
     private static final String TAG = WidgetDataProvider.class.getSimpleName();
     private static final String MOVIE_DISCOVER_FEATURE = "MOVIE_DISCOVER_FEATURE";
     private static final String MOVIE_PARCELED = "MOVIE_PARCELED";
+    private static final String MOVIES = "movies";
+    private static final String USERS = "users";
 
     private Context mContext;
-    private Intent mIntent;
 
     private List<Movie> movieList;
-    private Movie movie;
 
-    private DatabaseUtils databaseUtils;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
     public WidgetDataProvider(Context mContext, Intent mIntent) {
         this.mContext = mContext;
-        this.mIntent = mIntent;
+        Intent mIntent1 = mIntent;
         movieList = new ArrayList<Movie>();
     }
 
-    public void initData() throws NullPointerException {
+    private void initData() throws NullPointerException {
         try {
-            this.databaseUtils = new DatabaseUtils();
+            DatabaseUtils databaseUtils = new DatabaseUtils();
             this.mAuth = FirebaseAuth.getInstance();
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -63,8 +62,8 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
 
         MovieDBClient client = new MovieDBClient();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference moviesListRef = firebaseDatabase.getReference().child("users")
-                .child(mAuth.getCurrentUser().getUid()).child("movies");
+        DatabaseReference moviesListRef = firebaseDatabase.getReference().child(USERS)
+                .child(mAuth.getCurrentUser().getUid()).child(MOVIES);
 
         /**
          * Get list of movie id from the Firebase
@@ -97,10 +96,9 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     public void onDataSetChanged() {
         Timber.d(TAG, "Starting onDataSetChanged() in WidgetDataProvider.......");
         initData();
-        MovieDBClient client = new MovieDBClient();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference moviesListRef = firebaseDatabase.getReference().child("users")
-                .child(mAuth.getCurrentUser().getUid()).child("movies");
+        DatabaseReference moviesListRef = firebaseDatabase.getReference().child(USERS)
+                .child(mAuth.getCurrentUser().getUid()).child(MOVIES);
 
         /**
          * Get list of movie id from the Firebase
@@ -144,15 +142,15 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     public RemoteViews getViewAt(int position) {
         Timber.d(TAG, "Starting getViewAt() in WidgetDataProvider.......");
 
-        this.movie = movieList.get(position);
+        Movie movie = movieList.get(position);
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.wishlist_widget_item_row);
-        remoteViews.setTextViewText(R.id.widget_movie_title, this.movie.getmTitle());
-        remoteViews.setTextViewText(R.id.widget_movie_year, this.movie.getmReleaseYear());
+        remoteViews.setTextViewText(R.id.widget_movie_title, movie.getmTitle());
+        remoteViews.setTextViewText(R.id.widget_movie_year, movie.getmReleaseYear());
 
         Bundle extras = new Bundle();
-        extras.putParcelable(MOVIE_PARCELED, this.movie);
+        extras.putParcelable(MOVIE_PARCELED, movie);
         Intent fillInIntent = new Intent();
-        fillInIntent.putExtra(MOVIE_DISCOVER_FEATURE, this.movie);
+        fillInIntent.putExtra(MOVIE_DISCOVER_FEATURE, movie);
         fillInIntent.putExtras(extras);
         remoteViews.setOnClickFillInIntent(R.id.widget_item_row, fillInIntent);
 

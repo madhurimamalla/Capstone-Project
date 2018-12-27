@@ -14,7 +14,7 @@ import mmalla.android.com.whatnext.model.Movie;
  * response given by the GET movie details of TMDB
  * This class is used to parse through the API which gives the movie details
  */
-public class MovieDetailsJsonUtils {
+class MovieDetailsJsonUtils {
 
     public static Movie getMovieInformationFromJson(String moviesJsonStr) throws JSONException {
 

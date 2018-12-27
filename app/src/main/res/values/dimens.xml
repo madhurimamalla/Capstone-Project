@@ -65,4 +65,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="widget_movie_title_padding">8dp</dimen>
     <dimen name="widget_movie_year_padding">8dp</dimen>
     <dimen name="widget_movie_year_textsize">15sp</dimen>
+    <dimen name="activity_splash_discover_textsize">20sp</dimen>
+    <dimen name="activity_splash_wishlist_text_textsize">20sp</dimen>
+    <dimen name="history_splash_act_textsize">20sp</dimen>
 </resources>

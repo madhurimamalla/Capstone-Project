@@ -88,5 +88,26 @@
     <string name="dislike_movie_button">dislike movie button</string>
     <string name="like_movie_button">like movie button</string>
     <string name="add_to_watchlist">Add to watchlist</string>
+    <string name="widget_movie_poster">Widget movie poster</string>
+    <string name="watchlist_splash_activity_icon">watchlist splash activity icon</string>
+    <string name="new_movie_icon_activity_splash">new movie icon activity splash</string>
+    <string name="history_icon_splash_activity">History icon splash activity</string>
+    <string name="movie_poster_fragment_wishlist_item">movie poster fragment wishlist item</string>
+    <string name="image_view_widget_general">image view widget general</string>
+    <string name="toolbar_image_activity_details">toolbar image activity details</string>
+    <string name="enter_a_name_of_the_widget">Enter a name of the widget</string>
+    <string name="plot_summary">PLOT SUMMARY</string>
+    <string name="the_plot_follows_the_intertwining_lives_of_two_assassins_a_fatally_ill_teacher_a_janitor_and_a_waitress_all_of_whom_become_part_of_an_evil_mastermind_s_murderous_plan_the_plot_follows_the_intertwining_lives_of_two_assassins_a_fatally_ill_teacher_a_janitor_and_a_waitress_all_of_whom_become_part_of_an_evil_mastermind_s_murderous_plan">The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind\'s murderous plan. The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind\'s murderous plan.</string>
+    <string name="click_to_see_new_content">Click to see new content</string>
+    <string name="feature_name">FEATURE NAME</string>
+    <string name="The_movie_is_added_to_your_wishlist">The movie is added to your wishlist</string>
+    <string name="The_movie_is_added_to_your_liked_list">The movie is added to your liked movie/history list</string>
+    <string name="The_movie_is_added_to_your_dislike_list">The movie is added to your dislike list</string>
+    <string name="Disabling_the_liked_dislike_buttons"><![CDATA[Disabling the liked & dislike buttons]]></string>
+    <string name="Disabling_the_watchlist_dislike_buttons"><![CDATA[Disabling the watchlist & dislike buttons]]></string>
+    <string name="Disabling_the_liked_watchlist_buttons"><![CDATA[Disabling the liked & watchlist buttons]]></string>
+    <string name="Required_error_content">Required.</string>
+    <string name="Edit_account_details_clicked">Edit Account Details clicked</string>
+    <string name="Cleared_movie_list">Cleared user wishlist!</string>
 
 </resources>

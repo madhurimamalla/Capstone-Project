@@ -10,4 +10,6 @@
     android:layout_marginRight="@dimen/fragment_history_list_marginRight"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     tools:context=".features.history.HistoryFragment"
-    tools:listitem="@layout/fragment_history" />
+    tools:listitem="@layout/fragment_history"
+    android:layout_marginStart="@dimen/fragment_history_list_marginLeft"
+    android:layout_marginEnd="@dimen/fragment_history_list_marginRight" />

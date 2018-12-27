@@ -19,7 +19,8 @@
             android:id="@+id/movie_poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/fragment_wishlist_item_movie_poster_padding" />
+            android:padding="@dimen/fragment_wishlist_item_movie_poster_padding"
+            android:contentDescription="@string/movie_poster_fragment_wishlist_item" />
 
         <LinearLayout
             android:layout_width="match_parent"

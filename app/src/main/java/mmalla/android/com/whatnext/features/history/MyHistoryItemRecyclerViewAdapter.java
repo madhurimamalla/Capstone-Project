@@ -69,11 +69,11 @@ public class MyHistoryItemRecyclerViewAdapter extends RecyclerView.Adapter<MyHis
     }
 
     public class HistoryItemViewHolder extends RecyclerView.ViewHolder {
-        public final ImageView mImgPath;
-        public final TextView mName;
-        public final TextView mYear;
+        final ImageView mImgPath;
+        final TextView mName;
+        final TextView mYear;
 
-        public HistoryItemViewHolder(View view) {
+        HistoryItemViewHolder(View view) {
             super(view);
             mImgPath = (ImageView) view.findViewById(R.id.movie_poster);
             mName = (TextView) view.findViewById(R.id.movie_name);

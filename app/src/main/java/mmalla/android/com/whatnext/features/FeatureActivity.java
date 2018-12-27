@@ -43,12 +43,8 @@ public class FeatureActivity extends BaseActivity {
      */
     private static final boolean AUTO_HIDE = true;
 
-    DatabaseUtils databaseUtils;
-    FirebaseAuth mAuth;
+    private Long num;
 
-    Long num;
-
-    private ViewPager mViewPager;
     private List<Movie> discoveredMovies;
     private List<Movie> dislikedMovies;
 
@@ -73,17 +69,8 @@ public class FeatureActivity extends BaseActivity {
 
     private final static String TAG = FeatureActivity.class.getSimpleName();
 
-    /**
-     * Store the state if the Activity was showing Discover, Wishlist or History feature
-     * Wishlist : 0
-     * Discover : 1
-     * History : 2
-     */
-    private int state;
-
     private final Handler mHideHandler = new Handler();
     private View mContentView;
-    private TextView mFeatureTitle;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -139,8 +126,8 @@ public class FeatureActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        databaseUtils = new DatabaseUtils();
-        mAuth = FirebaseAuth.getInstance();
+        DatabaseUtils databaseUtils = new DatabaseUtils();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_feature);
         ActionBar actionBar = getSupportActionBar();
@@ -151,12 +138,12 @@ public class FeatureActivity extends BaseActivity {
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-        mFeatureTitle = findViewById(R.id.feature_title);
+        TextView mFeatureTitle = findViewById(R.id.feature_title);
 
         /**
          * ViewPager to display the various movies in the discover feature
          */
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
 
         discoveredMovies = new ArrayList<Movie>();
         dislikedMovies = new ArrayList<Movie>();
@@ -182,6 +169,13 @@ public class FeatureActivity extends BaseActivity {
 
         Intent previousIntent = getIntent();
 
+        /*
+      Store the state if the Activity was showing Discover, Wishlist or History feature
+      Wishlist : 0
+      Discover : 1
+      History : 2
+     */
+        int state;
         if (previousIntent.getExtras().containsKey(MOVIE_WISHLIST_PARCELED)) {
 
             WishlistFragment wishlistFragment = (WishlistFragment) getFragmentManager().findFragmentById(R.id.feature_container);
@@ -273,7 +267,7 @@ public class FeatureActivity extends BaseActivity {
                 }
 
                 try {
-                    Movie luckyMovie = discoveredMovies.get(luckyNum - 1);
+                    Movie luckyMovie = discoveredMovies.get(luckyNum);
                     discoveredMovies.clear();
                     discoveredMovies = new fetchInterestingMovies().execute(luckyMovie.getmId()).get();
                     Timber.d(TAG, "Discovered movies are here!");
@@ -285,7 +279,7 @@ public class FeatureActivity extends BaseActivity {
             }
 
             /**
-             * TODO Refine the discovered movies to remove any disliked movies
+             * TODO Refine the discovered movies to remove any disliked/liked/wishlisted movies
              */
 
 
@@ -294,7 +288,10 @@ public class FeatureActivity extends BaseActivity {
              */
             DiscoverPagerAdapter discoverPagerAdapter = new DiscoverPagerAdapter(getSupportFragmentManager());
             if (discoveredMovies.size() > 10) {
-                discoverPagerAdapter.setList(discoveredMovies.subList(0, 9));
+                /**
+                 * fromIndex is inclusive, toIndex is exclusive
+                 */
+                discoverPagerAdapter.setList(discoveredMovies.subList(0, 10));
             }
             discoverPagerAdapter.setList(discoveredMovies);
             mViewPager.setAdapter(discoverPagerAdapter);

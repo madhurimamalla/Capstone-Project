@@ -3,7 +3,6 @@ package mmalla.android.com.whatnext.features.discovery;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import mmalla.android.com.whatnext.R;
 import mmalla.android.com.whatnext.model.Movie;
 import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
+import timber.log.Timber;
 
 
 /**
@@ -26,14 +26,10 @@ import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
 public class DiscoverFragment extends Fragment {
 
     private final static String TAG = DiscoverFragment.class.getSimpleName();
+    private final static String DISCOVERED_MOVIE = "DISCOVERED_MOVIE";
 
     private DatabaseUtils databaseUtils;
     private FirebaseAuth mAuth;
-
-    /**
-     * Using this for rendering images
-     */
-    private String IMAGE_MOVIE_URL = "https://image.tmdb.org/t/p/w780/";
 
     private Movie movie;
 
@@ -50,7 +46,7 @@ public class DiscoverFragment extends Fragment {
     public static DiscoverFragment newInstance(Movie movie) {
         DiscoverFragment fragment = new DiscoverFragment();
         Bundle args = new Bundle();
-        args.putParcelable("DISCOVERED_MOVIE", movie);
+        args.putParcelable(DISCOVERED_MOVIE, movie);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,7 +55,7 @@ public class DiscoverFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             this.movie = savedInstanceState.getParcelable(getString(R.string.PARCELED_MOVIE));
         } else if (getArguments() != null) {
             this.movie = getArguments().getParcelable(getString(R.string.DISCOVERED_MOVIE));
@@ -67,7 +63,7 @@ public class DiscoverFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         databaseUtils = new DatabaseUtils();
-        Log.d(TAG, movie.toString());
+        Timber.d(TAG, movie.toString());
 
     }
 
@@ -83,6 +79,10 @@ public class DiscoverFragment extends Fragment {
         /**
          * Glide the image rendering!
          */
+        /*
+      Using this for rendering images
+     */
+        String IMAGE_MOVIE_URL = "https://image.tmdb.org/t/p/w780/";
         Glide.with(getActivity().getApplicationContext()).load(IMAGE_MOVIE_URL + mImgPath).into(imageView);
 
         /**
@@ -107,13 +107,13 @@ public class DiscoverFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 databaseUtils.updateMovie(mAuth.getCurrentUser().getUid(), movie, Movie.PREFERENCE.WISHLISTED);
-                Toast.makeText(getContext(), "The movie is added to your wishlist", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.The_movie_is_added_to_your_wishlist, Toast.LENGTH_LONG).show();
                 watchlistView.setEnabled(false);
                 likedMovieView.setAlpha(1);
                 dontlikeMovieView.setAlpha(1);
                 likedMovieView.setEnabled(false);
                 dontlikeMovieView.setEnabled(false);
-                Log.d(TAG, "Disabling the liked & dislike buttons");
+                Timber.d(TAG, getString(R.string.Disabling_the_liked_dislike_buttons));
             }
         });
 
@@ -121,13 +121,13 @@ public class DiscoverFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 databaseUtils.updateMovie(mAuth.getCurrentUser().getUid(), movie, Movie.PREFERENCE.LIKED);
-                Toast.makeText(getContext(), "The movie is added to your liked movie/history list", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.The_movie_is_added_to_your_liked_list, Toast.LENGTH_LONG).show();
                 watchlistView.setAlpha(1);
                 dontlikeMovieView.setAlpha(1);
                 watchlistView.setEnabled(false);
                 dontlikeMovieView.setEnabled(false);
                 watchlistView.setEnabled(false);
-                Log.d(TAG, "Disabling the watchlist & dislike buttons");
+                Timber.d(TAG, getString(R.string.Disabling_the_watchlist_dislike_buttons));
             }
         });
 
@@ -135,13 +135,13 @@ public class DiscoverFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 databaseUtils.updateMovie(mAuth.getCurrentUser().getUid(), movie, Movie.PREFERENCE.DISLIKED);
-                Toast.makeText(getContext(), "The movie is added to your dislike list", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.The_movie_is_added_to_your_dislike_list, Toast.LENGTH_LONG).show();
                 dontlikeMovieView.setEnabled(false);
                 likedMovieView.setAlpha(1);
                 watchlistView.setAlpha(1);
                 likedMovieView.setEnabled(false);
                 watchlistView.setEnabled(false);
-                Log.d(TAG, "Disabling the liked & watchlist buttons");
+                Timber.d(TAG, getString(R.string.Disabling_the_liked_watchlist_buttons));
             }
         });
 
@@ -151,6 +151,6 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("MOVIE_PARCELED", movie);
+        outState.putParcelable(getString(R.string.PARCELED_MOVIE), movie);
     }
 }

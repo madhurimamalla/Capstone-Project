@@ -17,7 +17,9 @@
             android:orientation="horizontal"
             android:padding="@dimen/widget_layout_main_padding"
             android:paddingLeft="@dimen/widget_layout_main_paddingLeft"
-            android:paddingRight="@dimen/widget_layout_main_paddingRight">
+            android:paddingRight="@dimen/widget_layout_main_paddingRight"
+            android:paddingStart="@dimen/widget_layout_main_paddingLeft"
+            android:paddingEnd="@dimen/widget_layout_main_paddingRight">
 
             <TextView
                 android:layout_width="match_parent"
@@ -58,7 +60,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0.2" />
+                android:alpha="0.2"
+                android:contentDescription="@string/image_view_widget_general" />
         </RelativeLayout>
     </LinearLayout>
 

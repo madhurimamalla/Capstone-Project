@@ -35,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_heart_blue" />
+                android:src="@drawable/ic_heart_blue"
+                android:contentDescription="@string/watchlist_splash_activity_icon" />
 
             <Button
                 android:id="@+id/wishlist"
@@ -78,7 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_new_badge" />
+                android:src="@drawable/ic_new_badge"
+                android:contentDescription="@string/new_movie_icon_activity_splash" />
         </LinearLayout>
 
 
@@ -91,7 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_history" />
+                android:src="@drawable/ic_history"
+                android:contentDescription="@string/history_icon_splash_activity" />
 
             <Button
                 android:id="@+id/history"

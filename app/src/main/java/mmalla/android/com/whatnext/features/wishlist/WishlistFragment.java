@@ -35,9 +35,6 @@ public class WishlistFragment extends Fragment {
 
     private List<Movie> movies;
 
-    DatabaseUtils databaseUtils;
-    FirebaseAuth mAuth;
-
     private int mColumnCount = 1;
 
     public void setMoviesList(List<Movie> movies) {
@@ -71,8 +68,8 @@ public class WishlistFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        mAuth = FirebaseAuth.getInstance();
-        databaseUtils = new DatabaseUtils();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        DatabaseUtils databaseUtils = new DatabaseUtils();
         this.movies = databaseUtils.getWishlist(mAuth.getCurrentUser().getUid());
         Timber.d(TAG, " Got the movies! ");
     }

@@ -6,7 +6,7 @@
     android:background="@color/colorPrimaryLight">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/botton_sheet"
+        android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
@@ -23,7 +23,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/plot_summary_modal_textview_margin"
             android:padding="@dimen/plot_summary_modal_textview_padding"
-            android:text="PLOT SUMMARY"
+            android:text="@string/plot_summary"
             android:textAlignment="center"
             android:textSize="25sp" />
 
@@ -34,8 +34,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/plot_summary_modal_text_layout_margin"
             android:padding="@dimen/plot_summary_plot_summary_text_padding"
-            android:text="The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind's murderous plan.
-The plot follows the intertwining lives of two assassins, a fatally-ill teacher, a janitor and a waitress, all of whom become part of an evil mastermind's murderous plan."
+            android:text="@string/the_plot_follows_the_intertwining_lives_of_two_assassins_a_fatally_ill_teacher_a_janitor_and_a_waitress_all_of_whom_become_part_of_an_evil_mastermind_s_murderous_plan_the_plot_follows_the_intertwining_lives_of_two_assassins_a_fatally_ill_teacher_a_janitor_and_a_waitress_all_of_whom_become_part_of_an_evil_mastermind_s_murderous_plan"
             android:textAlignment="center" />
 
         <View

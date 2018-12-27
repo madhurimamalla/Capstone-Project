@@ -40,7 +40,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/activity_feature_feature_title_margin"
                     android:padding="@dimen/activity_feature_title_padding"
-                    android:text="FEATURE NAME"
+                    android:text="@string/feature_name"
                     android:textAlignment="center" />
             </android.support.v7.widget.CardView>
 

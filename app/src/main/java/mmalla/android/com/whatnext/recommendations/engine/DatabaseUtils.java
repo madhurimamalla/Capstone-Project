@@ -1,7 +1,6 @@
 package mmalla.android.com.whatnext.recommendations.engine;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +31,7 @@ public class DatabaseUtils {
     private final static String WISHLIST = "wishlist";
     private final static String HISTORY = "history";
 
-    public DatabaseReference database;
+    private DatabaseReference database;
 
     public DatabaseUtils() {
         this.database = FirebaseDatabase.getInstance().getReference();
@@ -105,7 +104,6 @@ public class DatabaseUtils {
                     Movie movie = ds.getValue(Movie.class);
                     if (movie.getmPref().equals(preference)) {
                         list.add(movie);
-                        Log.d(TAG, list.toString());
                     }
                 }
             }
@@ -190,7 +188,6 @@ public class DatabaseUtils {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 size2[0] = (dataSnapshot.getChildrenCount());
-                Log.d(TAG, "Size: " + size2);
             }
 
             @Override

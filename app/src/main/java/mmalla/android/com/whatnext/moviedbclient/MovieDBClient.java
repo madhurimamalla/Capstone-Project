@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
+import mmalla.android.com.whatnext.BuildConfig;
 import mmalla.android.com.whatnext.model.Movie;
 import timber.log.Timber;
 
@@ -40,10 +41,7 @@ public class MovieDBClient {
 
     private final static String PAGE_VALUE = "1";
 
-    /**
-     * TODO Add your API key here
-     */
-    private final static String API_Key = "<<Insert API key>>";
+    private final static String API_KEY = BuildConfig.THE_MOVIE_DB_API_TOKEN;
 
     public MovieDBClient() {
     }
@@ -78,7 +76,7 @@ public class MovieDBClient {
 
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath(path)
-                .appendQueryParameter(QUERY_PARAM, API_Key)
+                .appendQueryParameter(QUERY_PARAM, API_KEY)
                 .appendQueryParameter(LANG_PARAM, LANG_VALUE)
                 .appendQueryParameter(PAGE_PARAM, PAGE_VALUE)
                 .build();
@@ -91,7 +89,7 @@ public class MovieDBClient {
             e.printStackTrace();
         }
 
-        Timber.v(TAG, "Built URL " + url);
+        Timber.v(TAG, "Built URL %s", url);
         return url;
     }
 
@@ -105,7 +103,7 @@ public class MovieDBClient {
 
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath(id)
-                .appendQueryParameter(QUERY_PARAM, API_Key)
+                .appendQueryParameter(QUERY_PARAM, API_KEY)
                 .appendQueryParameter(LANG_PARAM, LANG_VALUE)
                 .build();
 
@@ -117,7 +115,7 @@ public class MovieDBClient {
             e.printStackTrace();
         }
 
-        Timber.v(TAG, "Built URL " + url);
+        Timber.v(TAG, "Built URL %s", url);
         return url;
     }
 
@@ -132,7 +130,7 @@ public class MovieDBClient {
 
         Uri builtUri = Uri.parse(BASE_URL).buildUpon().appendPath(id)
                 .appendPath(SEARCH_PARAM)
-                .appendQueryParameter(QUERY_PARAM, API_Key)
+                .appendQueryParameter(QUERY_PARAM, API_KEY)
                 .appendQueryParameter(LANG_PARAM, LANG_VALUE)
                 .appendQueryParameter(PAGE_PARAM, PAGE_VALUE)
                 .build();
@@ -145,7 +143,7 @@ public class MovieDBClient {
             e.printStackTrace();
         }
 
-        Timber.v(TAG, "Built URL " + url);
+        Timber.v(TAG, "Built URL %s", url);
 
         return url;
     }
@@ -179,7 +177,7 @@ public class MovieDBClient {
      * @return
      * @throws MovieDBClientException
      */
-    public List<Movie> getPopularMovies() throws MovieDBClientException {
+    private List<Movie> getPopularMovies() throws MovieDBClientException {
         List<Movie> movieList = null;
 
         URL moviesListUrl = buildUrl(PATH_POPULAR_PARAM);
@@ -202,7 +200,6 @@ public class MovieDBClient {
      * @throws MovieDBClientException
      */
     public List<Movie> getSimilarMovies(String id) throws MovieDBClientException {
-        List<Movie> movieList = new ArrayList<Movie>();
 
         URL moviesListUrl = buildGetSimilarMoviesUrl(id);
         Timber.d(TAG, moviesListUrl);
@@ -217,7 +214,6 @@ public class MovieDBClient {
     }
 
     /**
-     *
      * @param length
      * @return
      * @throws MovieDBClientException
@@ -233,21 +229,13 @@ public class MovieDBClient {
     /**
      * Get random number between a range
      */
+    public int getRandomNumber(int fromNum, int toNum) {
 
-    public int getRandomNumber(int fromNum, int toNum){
-
-        final int min = fromNum + 1;
+        final int min = fromNum;
         final int max = toNum;
         final int random = new Random().nextInt((max - min) + 1) + min;
 
         return random;
     }
-
-    /**
-     * Get the wishlist of the user and pick a random id
-     */
-
-
-
 
 }

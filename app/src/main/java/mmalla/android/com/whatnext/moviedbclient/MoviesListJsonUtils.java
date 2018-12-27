@@ -19,7 +19,7 @@ import mmalla.android.com.whatnext.model.Movie;
  * https://developers.themoviedb.org/3/movies/get-popular-movies & https://developers.themoviedb.org/3/search/search-movies
  * having by paths /movie/popular & /movie/top_rated & /search/movie.
  */
-public class MoviesListJsonUtils {
+class MoviesListJsonUtils {
 
     private static final String PM_RESULTS = "results";
 

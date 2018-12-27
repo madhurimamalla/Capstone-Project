@@ -29,9 +29,6 @@ public class HistoryFragment extends Fragment {
 
     private final static String TAG = HistoryFragment.class.getSimpleName();
 
-    private DatabaseUtils databaseUtils;
-    private FirebaseAuth mAuth;
-
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -76,8 +73,8 @@ public class HistoryFragment extends Fragment {
         /**
          * Get movies from the history of the user
          */
-        mAuth = FirebaseAuth.getInstance();
-        databaseUtils = new DatabaseUtils();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        DatabaseUtils databaseUtils = new DatabaseUtils();
         /**
          * Displayed the movies which the user has seen and liked
          */

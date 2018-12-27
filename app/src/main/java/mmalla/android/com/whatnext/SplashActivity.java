@@ -52,9 +52,9 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.discover).setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
 
-        /**
-         * Check if there are any movies under the authenticated user, if so, send a message to the next
-         * activity so the discovery process can be easy.
+        /*
+          Check if there are any movies under the authenticated user, if so, send a message to the next
+          activity so the discovery process can be easy.
          */
 
         this.presentLikedMovies = new ArrayList<Movie>();
@@ -83,11 +83,11 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         int id = item.getItemId();
         switch (id) {
             case R.id.edit_account_details:
-                Toast.makeText(getApplicationContext(), "Edit Account Details clicked", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.Edit_account_details_clicked, Toast.LENGTH_LONG).show();
                 return true;
             case R.id.clear_movie_list:
                 if (databaseUtils.removeFullMoviesListFromTheUser(mAuth.getCurrentUser().getUid())) {
-                    Toast.makeText(getApplicationContext(), "Cleared user wishlist!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.Cleared_movie_list, Toast.LENGTH_LONG).show();
                 }
                 return true;
             default:
@@ -110,8 +110,8 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
             movies.add(movie);
             movies.add(movie1);
 
-            /**
-             * Initiating the Discover fragment via Feature Activity
+            /*
+              Initiating the Discover fragment via Feature Activity
              */
             Intent discoverIntent = new Intent(this, FeatureActivity.class);
             discoverIntent.putExtra(MOVIE_DISCOVER_FEATURE, movies);

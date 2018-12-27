@@ -35,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_heart_blue" />
+                android:src="@drawable/ic_heart_blue"
+                android:contentDescription="@string/watchlist_splash_activity_icon" />
 
             <Button
                 android:id="@+id/wishlist"
@@ -48,7 +49,7 @@
                 android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/wishlist"
-                android:textSize="20dp"
+                android:textSize="@dimen/activity_splash_wishlist_text_textsize"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 tools:text="@string/wishlist" />
 
@@ -71,7 +72,7 @@
                 android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/discover"
-                android:textSize="20dp"
+                android:textSize="@dimen/activity_splash_discover_textsize"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 tools:text="@string/discover" />
 
@@ -79,7 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_new_badge" />
+                android:src="@drawable/ic_new_badge"
+                android:contentDescription="@string/new_movie_icon_activity_splash" />
 
         </LinearLayout>
 
@@ -93,7 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_history" />
+                android:src="@drawable/ic_history"
+                android:contentDescription="@string/history_icon_splash_activity" />
 
             <Button
                 android:id="@+id/history"
@@ -106,7 +109,7 @@
                 android:padding="8dp"
                 android:shadowColor="@color/cardview_dark_background"
                 android:text="@string/history"
-                android:textSize="20dp"
+                android:textSize="@dimen/history_splash_act_textsize"
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 tools:text="@string/history" />
 

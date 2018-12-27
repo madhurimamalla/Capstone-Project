@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Required for bingding remoteViews to the Widget -->
+        <!-- Required for binding remoteViews to the Widget -->
         <service
             android:name=".widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />

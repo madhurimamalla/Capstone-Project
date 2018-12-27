@@ -8,10 +8,6 @@ import java.util.List;
 @IgnoreExtraProperties
 public class User {
 
-   // public String username;
-    public String email;
-    public List<Movie> movieList;
-
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -19,8 +15,8 @@ public class User {
     public User(/*String username,*/ String email) {
         // TODO Add support for username too later
         //this.username = username;
-        this.email = email;
-        this.movieList = new ArrayList<Movie>();
+        String email1 = email;
+        List<Movie> movieList = new ArrayList<Movie>();
     }
 
 }

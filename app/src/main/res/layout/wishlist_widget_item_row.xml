@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/wishlist_widget_item_row_poster_margin"
             android:padding="@dimen/wishlist_widget_poster_padding"
-            android:src="@drawable/ic_heart_blue" />
+            android:src="@drawable/ic_heart_blue"
+            android:contentDescription="@string/widget_movie_poster" />
 
         <LinearLayout
             android:layout_width="match_parent"

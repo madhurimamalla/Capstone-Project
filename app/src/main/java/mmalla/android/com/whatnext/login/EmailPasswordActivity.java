@@ -14,8 +14,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import mmalla.android.com.whatnext.BaseActivity;
 import mmalla.android.com.whatnext.R;
@@ -24,9 +22,9 @@ import mmalla.android.com.whatnext.model.User;
 import mmalla.android.com.whatnext.recommendations.engine.DatabaseUtils;
 import timber.log.Timber;
 
-public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener{
+public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
 
-    String TAG = EmailPasswordActivity.class.getSimpleName();
+    private static final String TAG = EmailPasswordActivity.class.getSimpleName();
 
     private TextView mStatusTextView;
     private TextView mDetailTextView;
@@ -37,12 +35,10 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     private FirebaseAuth mAuth;
     // [END declare_auth]
 
-    public DatabaseReference database;
-
     /**
      * Creating instance of DatabaseUtils for interacting with DB
      */
-    DatabaseUtils du = new DatabaseUtils();
+    private DatabaseUtils du = new DatabaseUtils();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +83,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     // [END on_start_check_user]
 
     private void createAccount(String email, String password) {
-        Timber.d(TAG, "createAccount:" + email);
+        Timber.d(TAG, "createAccount:%s", email);
         if (!validateForm()) {
             return;
         }
@@ -109,7 +105,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                              * and it's for the first time!
                              */
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            User userObj = new User(/*"Madhurima Malla",*/ firebaseUser.getEmail());
+                            User userObj = new User(firebaseUser.getEmail());
                             du.writeNewUser(mAuth.getCurrentUser().getUid(), userObj);
                             updateUI(user);
                         } else {
@@ -129,7 +125,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     }
 
     private void signIn(String email, String password) {
-        Timber.d(TAG, "signIn:" + email);
+        Timber.d(TAG, "signIn:%s", email);
         if (!validateForm()) {
             return;
         }
@@ -163,38 +159,6 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     }
                 });
         // [END sign_in_with_email]
-
-
-
-//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-////        mDatabase.child("message").removeValue();
-////        mDatabase.child("message").setValue("Hey, World");
-//        mDatabase.child("Madhurima Malla");
-//        FirebaseUser user = mAuth.getCurrentUser();
-//        Log.d(TAG, "Users email: " + user.getEmail());
-//        mDatabase.child("Madhurima Malla").setValue(user.getEmail().toString());
-//        mDatabase.child("Madhurima Malla").child("movies").setValue("Terminal");
-//        ValueEventListener postListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String str = dataSnapshot.child("Madhurima Malla").child("movies").getValue().toString();
-//                Log.d(TAG, str);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Log.w(TAG, "loadMessage:onCancelled", databaseError.toException());
-//            }
-//        };
-//        // mDatabase.child("message");
-//        mDatabase.addValueEventListener(postListener);
-
-
-    }
-
-    public void writeNewUser(String userId, User user) {
-        database = FirebaseDatabase.getInstance().getReference();
-        database.child("users").child(userId).setValue(user);
 
     }
 
@@ -240,7 +204,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         String email = mEmailField.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailField.setError("Required.");
+            mEmailField.setError(getString(R.string.Required_error_content));
             valid = false;
         } else {
             mEmailField.setError(null);
@@ -248,7 +212,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         String password = mPasswordField.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordField.setError("Required.");
+            mPasswordField.setError(getString(R.string.Required_error_content));
             valid = false;
         } else {
             mPasswordField.setError(null);
@@ -284,20 +248,26 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.emailCreateAccountButton) {
-            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
-        } else if (i == R.id.emailSignInButton) {
-            signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-        } else if (i == R.id.signOutButton) {
-            signOut();
-        } else if (i == R.id.verifyEmailButton) {
-            sendEmailVerification();
-        } else if (i == R.id.newcontent) {
-            /**
-             * Start the SplashActivity on newContent button click
-             */
-            Intent intent = new Intent(this, SplashActivity.class);
-            startActivity(intent);
+        switch (i) {
+            case R.id.emailCreateAccountButton:
+                createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                break;
+            case R.id.emailSignInButton:
+                signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                break;
+            case R.id.signOutButton:
+                signOut();
+                break;
+            case R.id.verifyEmailButton:
+                sendEmailVerification();
+                break;
+            case R.id.newcontent:
+                /**
+                 * Start the SplashActivity on newContent button click
+                 */
+                Intent intent = new Intent(this, SplashActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
