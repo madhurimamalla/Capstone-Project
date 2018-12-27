@@ -1,8 +1,11 @@
 package mmalla.android.com.whatnext;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +49,15 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Explode explode = new Explode();
+            explode.setDuration(300);
+            Fade fade = new Fade();
+            fade.setDuration(400);
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(explode);
+            getWindow().setReenterTransition(explode);
+        }
         setContentView(R.layout.activity_splash);
         findViewById(R.id.wishlist).setOnClickListener(this);
         findViewById(R.id.history).setOnClickListener(this);
@@ -154,7 +166,6 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-
         super.onSaveInstanceState(outState);
     }
 }

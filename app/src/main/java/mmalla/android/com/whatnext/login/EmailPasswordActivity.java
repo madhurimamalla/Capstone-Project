@@ -1,6 +1,8 @@
 package mmalla.android.com.whatnext.login;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -266,7 +268,12 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                  * Start the SplashActivity on newContent button click
                  */
                 Intent intent = new Intent(this, SplashActivity.class);
-                startActivity(intent);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intent);
+                }
                 break;
         }
     }
