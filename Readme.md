@@ -4,3 +4,5 @@
 
 #### Idea of how the app looks:
 ![whatnext](https://user-images.githubusercontent.com/827584/53692267-908acf80-3db2-11e9-970c-8314716f54f3.gif)
+
+##### To see the complete video of the application running, please download the mp4 called WhatNext.mp4 
