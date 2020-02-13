@@ -102,7 +102,7 @@ public class DatabaseUtils {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Movie movie = ds.getValue(Movie.class);
-                    if (movie.getmPref().equals(preference)) {
+                    if (movie != null && movie.getmPref().equals(preference)) {
                         list.add(movie);
                     }
                 }
@@ -125,10 +125,7 @@ public class DatabaseUtils {
      * @return
      */
     public List<Movie> getWishlist(String userID) {
-
-        List<Movie> movieList = getList(userID, Movie.PREFERENCE.WISHLISTED);
-
-        return movieList;
+        return getList(userID, Movie.PREFERENCE.WISHLISTED);
     }
 
 
@@ -139,16 +136,14 @@ public class DatabaseUtils {
      * @return
      */
     public List<Movie> getHistory(String userID) {
-        List<Movie> movieList = getList(userID, Movie.PREFERENCE.LIKED);
-        return movieList;
+        return getList(userID, Movie.PREFERENCE.LIKED);
     }
 
     /**
      * Method to retrieve the movies seen and disliked
      */
     public List<Movie> getDislikedMovies(String userID) {
-        List<Movie> movieList = getList(userID, Movie.PREFERENCE.DISLIKED);
-        return movieList;
+        return getList(userID, Movie.PREFERENCE.DISLIKED);
     }
 
     /**

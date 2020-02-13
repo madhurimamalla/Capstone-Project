@@ -16,7 +16,7 @@ public class User {
         // TODO Add support for username too later
         //this.username = username;
         String email1 = email;
-        List<Movie> movieList = new ArrayList<Movie>();
+        List<Movie> movies = new ArrayList<Movie>();
     }
 
 }

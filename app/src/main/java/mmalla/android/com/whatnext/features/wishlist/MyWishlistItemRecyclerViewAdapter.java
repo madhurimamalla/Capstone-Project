@@ -43,6 +43,8 @@ public class MyWishlistItemRecyclerViewAdapter extends RecyclerView.Adapter<MyWi
     public void onBindViewHolder(final WishlistViewHolder holder, int position) {
           holder.mName.setText(mValues.get(position).getmTitle());
           holder.mYear.setText(mValues.get(position).getmReleaseYear());
+          holder.mPlotSummaryTitle.setText(R.string.plot_summary);
+          holder.mMoviePlotSummary.setText(mValues.get(position).getmOverview());
 
         /**
          * Render the movie poster
@@ -77,12 +79,16 @@ public class MyWishlistItemRecyclerViewAdapter extends RecyclerView.Adapter<MyWi
         final ImageView mImgPath;
         final TextView mName;
         final TextView mYear;
+        final TextView mPlotSummaryTitle;
+        final TextView mMoviePlotSummary;
 
         WishlistViewHolder(View view) {
             super(view);
             mImgPath = (ImageView) view.findViewById(R.id.movie_poster);
             mName = (TextView) view.findViewById(R.id.movie_name);
             mYear = (TextView) view.findViewById(R.id.movie_year);
+            mPlotSummaryTitle = (TextView) view.findViewById(R.id.movie_plot_summary_title);
+            mMoviePlotSummary = (TextView) view.findViewById(R.id.movie_description);
         }
 
         @Override

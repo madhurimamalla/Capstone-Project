@@ -47,6 +47,8 @@ public class FeatureActivity extends BaseActivity {
 
     private List<Movie> discoveredMovies;
     private List<Movie> dislikedMovies;
+    private List<Movie> popularMovies;
+    private List<Movie> likedMovies;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -63,6 +65,7 @@ public class FeatureActivity extends BaseActivity {
     private static final String MOVIE_WISHLIST_PARCELED = "MOVIE_WISHLIST_PARCELED";
     private static final String MOVIE_DISCOVER_FEATURE = "MOVIE_DISCOVER_FEATURE";
     private static final String MOVIE_HISTORY_PARCELED = "MOVIE_HISTORY_PARCELED";
+    private static final String MOVIE_POPULAR_PARCELED = "MOVIE_POPULAR_PARCELED";
     private static final String MOVIES_DISLIKED = "MOVIES_DISLIKED";
     private static final String MOVIES_LIKED = "MOVIES_LIKED";
     private static final String MOVIES_DISCOVERED = "MOVIES_DISCOVERED";
@@ -203,6 +206,7 @@ public class FeatureActivity extends BaseActivity {
                 discoveredMovies = savedInstanceState.getParcelableArrayList(MOVIES_DISCOVERED);
             } else if (previousIntent.getExtras().containsKey(MOVIES_LIKED)) {
                 discoveredMovies = previousIntent.getExtras().getParcelableArrayList(MOVIES_LIKED);
+                likedMovies = previousIntent.getExtras().getParcelableArrayList(MOVIES_LIKED);
             }
 
             if (savedInstanceState != null) {
@@ -212,7 +216,7 @@ public class FeatureActivity extends BaseActivity {
                 this.dislikedMovies = previousIntent.getExtras().getParcelableArrayList(MOVIES_DISLIKED);
             }
 
-            if (num == 0) {
+            if (num == 0 || discoveredMovies.size() == 0) {
 
                 final MovieDBClient movieDBClient = new MovieDBClient();
 
@@ -223,7 +227,7 @@ public class FeatureActivity extends BaseActivity {
                         List<Movie> movielist = new ArrayList<Movie>();
 
                         try {
-                            movielist = movieDBClient.getSomePopularMovies(10);
+                            movielist = movieDBClient.getSomePopularMovies(20);
                         } catch (MovieDBClientException e) {
                             e.printStackTrace();
                         }
@@ -249,8 +253,11 @@ public class FeatureActivity extends BaseActivity {
 
                 final MovieDBClient client = new MovieDBClient();
 
-                int luckyNum = client.getRandomNumber(0, discoveredMovies.size());
+                int luckyNum = client.getRandomNumber(0, discoveredMovies.size() - 1);
 
+                /*
+                  Description: fetchInterestingMovies can only fetch 20 movies at a time for a given movie Id.
+                 */
                 class fetchInterestingMovies extends AsyncTask<String, Void, List<Movie>> {
 
                     @Override
@@ -282,6 +289,37 @@ public class FeatureActivity extends BaseActivity {
              * TODO Refine the discovered movies to remove any disliked/liked/wishlisted movies
              */
 
+            Timber.d(TAG, "Iterating through the discovered movie list to remove the disliked movies");
+            for (Movie m : likedMovies
+            ) {
+                if (discoveredMovies.contains(m)) {
+                    Timber.d(TAG, "Removed movie from discovered list: " + m.getmTitle());
+                    discoveredMovies.remove(m);
+                }
+            }
+
+            for (Movie m : dislikedMovies
+            ) {
+                if (discoveredMovies.contains(m)) {
+                    Timber.d(TAG, "Removed movie from discovered list: " + m.getmTitle());
+                    discoveredMovies.remove(m);
+                }
+            }
+
+           /* while (dislikedMovieItr.hasNext()) {
+                if (discoveredMovies.contains(dislikedMovieItr)) {
+                    discoveredMovies.remove(dislikedMovieItr);
+                }
+                dislikedMovieItr.next();
+            }*/
+
+            /*Iterator<Movie> likedMoviesItr = likedMovies.iterator();
+            while (likedMoviesItr.hasNext()) {
+                if (discoveredMovies.contains(likedMoviesItr)) {
+                    discoveredMovies.remove(likedMoviesItr);
+                }
+                likedMoviesItr.next();
+            }*/
 
             /**
              * Get the discovered movie list and set the adapter list so it can display in the viewpager
@@ -310,6 +348,39 @@ public class FeatureActivity extends BaseActivity {
                 fragmentTransaction.commit();
             }
 
+        } else if (previousIntent.getExtras().containsKey(MOVIE_POPULAR_PARCELED)) {
+            mFeatureTitle.setText(R.string.popular);
+
+            final MovieDBClient client = new MovieDBClient();
+
+            class fetchMovies extends AsyncTask<String, Void, List<Movie>> {
+
+                @Override
+                protected List<Movie> doInBackground(String... strings) {
+                    List<Movie> movielist = new ArrayList<Movie>();
+
+                    try {
+                        movielist = client.getSomePopularMovies(10);
+                    } catch (MovieDBClientException e) {
+                        e.printStackTrace();
+                    }
+                    return movielist;
+                }
+            }
+
+            try {
+                popularMovies = new fetchMovies().execute("").get();
+                Timber.d(TAG, "Popular movies are here!");
+
+                /**
+                 * TODO Remove the ones that are in disliked movies list from the Popular Movies Set
+                 */
+
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

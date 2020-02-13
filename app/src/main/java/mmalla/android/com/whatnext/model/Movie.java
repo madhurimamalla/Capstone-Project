@@ -121,4 +121,20 @@ public class Movie implements Parcelable {
     public void setmPref(PREFERENCE mPref) {
         this.mPref = mPref;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        return mId.equals(movie.mId);
+    }
+
+    @Override
+    public int hashCode() {
+        return mId.hashCode();
+    }
 }

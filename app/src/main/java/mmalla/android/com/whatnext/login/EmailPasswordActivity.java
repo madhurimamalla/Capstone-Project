@@ -112,7 +112,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Timber.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Timber.w(task.getException(), TAG, "createUserWithEmail:failure");
                             Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -146,7 +146,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Timber.w(TAG, "signInWithEmail:failure", task.getException());
+                            Timber.w(task.getException(), TAG, "signInWithEmail:failure");
                             Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -190,7 +190,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                                     "Verification email sent to " + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Timber.e(TAG, "sendEmailVerification", task.getException());
+                            Timber.e(task.getException(), TAG, "sendEmailVerification");
                             Toast.makeText(EmailPasswordActivity.this,
                                     "Failed to send verification email.",
                                     Toast.LENGTH_SHORT).show();

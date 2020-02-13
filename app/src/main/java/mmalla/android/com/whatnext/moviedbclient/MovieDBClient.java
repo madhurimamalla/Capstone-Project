@@ -194,6 +194,7 @@ public class MovieDBClient {
 
     /**
      * Method returns all similar movies compared to the movie id sent as the parameter
+     * This similar movie endpoint only returns 20 movies
      *
      * @param id
      * @return

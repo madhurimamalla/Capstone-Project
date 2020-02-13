@@ -35,8 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_heart_blue"
-                android:contentDescription="@string/watchlist_splash_activity_icon" />
+                android:contentDescription="@string/watchlist_splash_activity_icon"
+                android:src="@drawable/ic_heart_blue" />
 
             <Button
                 android:id="@+id/wishlist"
@@ -80,8 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_new_badge"
-                android:contentDescription="@string/new_movie_icon_activity_splash" />
+                android:contentDescription="@string/new_movie_icon_activity_splash"
+                android:src="@drawable/ic_new_badge" />
 
         </LinearLayout>
 
@@ -95,8 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:src="@drawable/ic_history"
-                android:contentDescription="@string/history_icon_splash_activity" />
+                android:contentDescription="@string/history_icon_splash_activity"
+                android:src="@drawable/ic_history" />
 
             <Button
                 android:id="@+id/history"
@@ -113,6 +113,35 @@
                 android:theme="@style/ThemeOverlay.MyDarkButton"
                 tools:text="@string/history" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_splash_4_padding">
+
+            <Button
+                android:id="@+id/popular"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="@dimen/activity_splash_discover_margin"
+                android:layout_weight="2"
+                android:elevation="@dimen/activity_splash_wishlist_elevation"
+                android:padding="@dimen/activity_splash_wishlist_padding"
+                android:shadowColor="@color/cardview_dark_background"
+                android:text="@string/popular"
+                android:textSize="@dimen/activity_splash_button_textsize"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                tools:text="@string/popular" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:contentDescription="@string/new_movie_icon_activity_splash"
+                android:src="@drawable/ic_roll" />
         </LinearLayout>
 
 

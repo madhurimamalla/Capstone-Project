@@ -3,6 +3,7 @@
     <string name="wishlist">WISHLIST</string>
     <string name="discover">DISCOVER</string>
     <string name="history">HISTORY</string>
+    <string name="popular">POPULAR</string>
 
     <string name="label_emailpassword">Email/Password Authentication</string>
     <string name="desc_emailpassword">Use an email and password to authenticate with Firebase.</string>

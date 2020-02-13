@@ -34,6 +34,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
     private static final String MOVIE_WISHLIST_PARCELED = "MOVIE_WISHLIST_PARCELED";
     private static final String MOVIE_DISCOVER_FEATURE = "MOVIE_DISCOVER_FEATURE";
     private static final String MOVIE_HISTORY_PARCELED = "MOVIE_HISTORY_PARCELED";
+    private static final String MOVIE_POPULAR_PARCELED = "MOVIE_POPULAR_PARCELED";
     private static final String MOVIES_DISLIKED = "MOVIES_DISLIKED";
     private static final String MOVIES_LIKED = "MOVIES_LIKED";
 
@@ -62,6 +63,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.wishlist).setOnClickListener(this);
         findViewById(R.id.history).setOnClickListener(this);
         findViewById(R.id.discover).setOnClickListener(this);
+        findViewById(R.id.popular).setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
 
         /*
@@ -131,6 +133,12 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
             discoverIntent.putParcelableArrayListExtra(MOVIES_LIKED, (ArrayList<? extends Parcelable>) this.presentLikedMovies);
             discoverIntent.putParcelableArrayListExtra(MOVIES_DISLIKED, (ArrayList<? extends Parcelable>) this.dislikedMovies);
             startActivity(discoverIntent);
+
+        } else if (i == R.id.popular) {
+
+            Intent popularIntent = new Intent(this, FeatureActivity.class);
+            popularIntent.putExtra(MOVIE_POPULAR_PARCELED, "");
+            startActivity(popularIntent);
 
         } else if (i == R.id.history) {
 
